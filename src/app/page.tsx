@@ -8,6 +8,7 @@ export default function Home() {
 
   const [value, setValue] = useState('');
   
+  // @ts-ignore
   const [ui, action] = useFormState<JSX.Element | null>(async () => {
     console.log(value.toString())
     return chatWithAgent(value.toString(), ui);
