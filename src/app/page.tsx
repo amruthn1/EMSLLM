@@ -1,19 +1,29 @@
 "use client";
 
 import { chatWithAgent } from "@/actions/page";
-import type { JSX } from "react";
+import { useState, type JSX } from "react";
 import { useFormState } from "react-dom"; 
 
 export default function Home() {
+
+  const [value, setValue] = useState('');
+  
   const [ui, action] = useFormState<JSX.Element | null>(async () => {
-    return chatWithAgent("What is Lorem Ipsum");
+    console.log(value.toString())
+    return chatWithAgent(value.toString(), ui);
   }, null);
   return (
     <main>
-      {ui}
+      <input
+        type="text"
+        value={value}
+        onChange={e => { setValue(e.currentTarget.value); }}
+      />
       <form action={action}>
-        <button>Chat</button>
+        <button className="btn btn-primary">Chat</button>
       </form>
+      <h2>Response:</h2>
+      {ui}
     </main>
   );
 }
